@@ -1,0 +1,111 @@
+<svg viewBox="0 0 940 880" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', system-ui, sans-serif">
+<rect x="0" y="0" width="940" height="880" fill="#08090f"/>
+<defs>
+<marker id="ar" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#8892b0"/></marker>
+<marker id="arg" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#0dbc79"/></marker>
+<marker id="arb" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4f7cff"/></marker>
+<marker id="ary" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#f5a623"/></marker>
+</defs>
+
+<text x="24" y="26" font-size="16" font-weight="800" fill="#dde3f0">Private GKE GitOps Platform — Terraform-provisioned (project: gitops-platform · region: asia-south1)</text>
+
+<rect x="24" y="44" width="210" height="104" rx="10" fill="#151929" stroke="#263054"/>
+<text x="129" y="68" text-anchor="middle" font-size="13" font-weight="800" fill="#dde3f0">💻 Your laptop</text>
+<text x="129" y="88" text-anchor="middle" font-size="10" fill="#8892b0">terraform · gcloud CLI</text>
+<text x="129" y="104" text-anchor="middle" font-size="10" fill="#8892b0">kubectl (only via bastion)</text>
+<text x="129" y="122" text-anchor="middle" font-size="10" fill="#8892b0">ADC creds for Terraform</text>
+<text x="129" y="138" text-anchor="middle" font-size="9.5" fill="#4a5578">no direct path to nodes/API</text>
+
+<rect x="365" y="44" width="210" height="104" rx="10" fill="rgba(79,124,255,.12)" stroke="#4f7cff"/>
+<text x="470" y="68" text-anchor="middle" font-size="13" font-weight="800" fill="#7097ff">⚙ Terraform</text>
+<text x="470" y="88" text-anchor="middle" font-size="10" fill="#8892b0">bootstrap/ → state bucket</text>
+<text x="470" y="104" text-anchor="middle" font-size="10" fill="#8892b0">infra/ → VPC, GKE, bastion</text>
+<text x="470" y="120" text-anchor="middle" font-size="10" fill="#8892b0">provider google ~&gt; 6.0</text>
+<text x="470" y="138" text-anchor="middle" font-size="9.5" fill="#4a5578">builds &amp; owns every box below</text>
+
+<rect x="706" y="44" width="210" height="104" rx="10" fill="rgba(13,188,121,.10)" stroke="#0dbc79"/>
+<text x="811" y="68" text-anchor="middle" font-size="13" font-weight="800" fill="#22e698">🪣 GCS bucket</text>
+<text x="811" y="88" text-anchor="middle" font-size="10" fill="#8892b0">terraform state (backend "gcs")</text>
+<text x="811" y="104" text-anchor="middle" font-size="10" fill="#8892b0">versioning ON · native lock</text>
+<text x="811" y="120" text-anchor="middle" font-size="10" fill="#8892b0">prefix: infra/</text>
+<text x="811" y="138" text-anchor="middle" font-size="9.5" fill="#4a5578">the "bootstrap" (created first)</text>
+
+<line x1="234" y1="80" x2="362" y2="80" stroke="#4f7cff" stroke-width="1.5" marker-end="url(#arb)"/>
+<line x1="575" y1="96" x2="703" y2="96" stroke="#0dbc79" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arg)"/>
+<text x="640" y="90" text-anchor="middle" font-size="9" fill="#4a5578">read/write state (locked)</text>
+
+<rect x="24" y="172" width="892" height="600" rx="14" fill="none" stroke="#4f7cff" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="40" y="194" font-size="13" font-weight="800" fill="#7097ff">VPC network (GLOBAL · custom mode)  ·  gitops-vpc</text>
+<text x="40" y="210" font-size="10" fill="#4a5578">Firewall (VPC-level, by tag): [allow-internal: 10.x ranges]  ·  [allow-ssh-iap: tcp/22 from 35.235.240.0/20 → tag:bastion]</text>
+
+<rect x="40" y="230" width="150" height="86" rx="9" fill="rgba(245,166,35,.12)" stroke="#f5a623"/>
+<text x="115" y="254" text-anchor="middle" font-size="12" font-weight="800" fill="#ffbe4d">IAP</text>
+<text x="115" y="272" text-anchor="middle" font-size="9.5" fill="#8892b0">Identity-Aware Proxy</text>
+<text x="115" y="287" text-anchor="middle" font-size="9.5" fill="#8892b0">secure SSH tunnel</text>
+<text x="115" y="304" text-anchor="middle" font-size="9" fill="#4a5578">IAM + OS Login, no public IP</text>
+
+<rect x="40" y="332" width="876" height="420" rx="10" fill="#0f1220" stroke="#1c2340"/>
+<text x="56" y="354" font-size="12" font-weight="700" fill="#8892b0">Region asia-south1  ·  Subnet gitops-subnet 10.0.0.0/20 (nodes)</text>
+<text x="56" y="370" font-size="10" fill="#4a5578">secondary ranges (VPC-native): pods 10.16.0.0/14  ·  services 10.20.0.0/20  ·  private Google access ON</text>
+
+<rect x="56" y="386" width="236" height="150" rx="9" fill="rgba(79,124,255,.12)" stroke="#4f7cff"/>
+<text x="174" y="410" text-anchor="middle" font-size="13" font-weight="800" fill="#7097ff">🛡️ Bastion VM</text>
+<text x="174" y="430" text-anchor="middle" font-size="10" fill="#8892b0">gitops-bastion · e2-small</text>
+<text x="174" y="446" text-anchor="middle" font-size="10" fill="#8892b0">10GB pd-standard · Debian 12</text>
+<text x="174" y="462" text-anchor="middle" font-size="10" fill="#8892b0">tag: bastion · NO external IP</text>
+<text x="174" y="478" text-anchor="middle" font-size="10" fill="#8892b0">SA scope: cloud-platform</text>
+<text x="174" y="494" text-anchor="middle" font-size="10" fill="#8892b0">startup script installs kubectl</text>
+<text x="174" y="514" text-anchor="middle" font-size="9.5" fill="#4a5578">runs: kubectl get-credentials</text>
+<text x="174" y="528" text-anchor="middle" font-size="9.5" fill="#4a5578">--internal-ip</text>
+
+<rect x="328" y="386" width="268" height="120" rx="9" fill="#151929" stroke="#263054"/>
+<text x="462" y="410" text-anchor="middle" font-size="13" font-weight="800" fill="#dde3f0">GKE control plane</text>
+<text x="462" y="430" text-anchor="middle" font-size="10" fill="#8892b0">Google-managed (API server + etcd)</text>
+<text x="462" y="446" text-anchor="middle" font-size="10" fill="#8892b0">private endpoint: 172.16.0.2</text>
+<text x="462" y="462" text-anchor="middle" font-size="10" fill="#8892b0">master CIDR: 172.16.0.0/28</text>
+<text x="462" y="478" text-anchor="middle" font-size="10" fill="#8892b0">authorized net: 10.0.0.0/20</text>
+<text x="462" y="494" text-anchor="middle" font-size="9.5" fill="#4a5578">public endpoint ENFORCED-OFF · Workload Identity ON</text>
+
+<rect x="328" y="556" width="268" height="170" rx="9" fill="rgba(245,166,35,.08)" stroke="#f5a623"/>
+<text x="462" y="580" text-anchor="middle" font-size="12" font-weight="800" fill="#ffbe4d">GKE node pool (private)</text>
+<text x="462" y="599" text-anchor="middle" font-size="10" fill="#8892b0">2× e2-medium · 20GB pd-standard</text>
+<text x="462" y="615" text-anchor="middle" font-size="10" fill="#8892b0">no external IP · GKE_METADATA</text>
+<rect x="346" y="628" width="110" height="40" rx="6" fill="#0d0f1c" stroke="#263054"/>
+<text x="401" y="645" text-anchor="middle" font-size="9.5" fill="#dde3f0">node-1</text>
+<text x="401" y="659" text-anchor="middle" font-size="8.5" fill="#4a5578">pods (10.16/14)</text>
+<rect x="468" y="628" width="110" height="40" rx="6" fill="#0d0f1c" stroke="#263054"/>
+<text x="523" y="645" text-anchor="middle" font-size="9.5" fill="#dde3f0">node-2</text>
+<text x="523" y="659" text-anchor="middle" font-size="8.5" fill="#4a5578">pods (10.16/14)</text>
+<text x="462" y="690" text-anchor="middle" font-size="9.5" fill="#4a5578">future: ArgoCD, app, Prometheus</text>
+<text x="462" y="706" text-anchor="middle" font-size="9.5" fill="#4a5578">pod identity via Workload Identity</text>
+
+<rect x="636" y="386" width="260" height="120" rx="9" fill="rgba(13,188,121,.10)" stroke="#0dbc79"/>
+<text x="766" y="410" text-anchor="middle" font-size="12" font-weight="800" fill="#22e698">Cloud Router + Cloud NAT</text>
+<text x="766" y="430" text-anchor="middle" font-size="10" fill="#8892b0">gitops-router / gitops-nat</text>
+<text x="766" y="446" text-anchor="middle" font-size="10" fill="#8892b0">NAT IP: AUTO_ONLY</text>
+<text x="766" y="462" text-anchor="middle" font-size="10" fill="#8892b0">all subnets, all ranges</text>
+<text x="766" y="482" text-anchor="middle" font-size="9.5" fill="#4a5578">OUTBOUND ONLY (managed)</text>
+<text x="766" y="497" text-anchor="middle" font-size="9.5" fill="#4a5578">image pulls / OS updates</text>
+
+<rect x="636" y="556" width="260" height="50" rx="9" fill="#151929" stroke="#263054"/>
+<text x="766" y="586" text-anchor="middle" font-size="12" font-weight="700" fill="#dde3f0">🌐 Internet (egress only)</text>
+
+<line x1="129" y1="148" x2="120" y2="228" stroke="#f5a623" stroke-width="2" marker-end="url(#ary)"/>
+<text x="60" y="200" font-size="9" fill="#ffbe4d">①ssh --tunnel-through-iap</text>
+<line x1="120" y1="316" x2="150" y2="384" stroke="#f5a623" stroke-width="2" marker-end="url(#ary)"/>
+<text x="60" y="360" font-size="9" fill="#ffbe4d">②into bastion</text>
+<line x1="292" y1="446" x2="326" y2="446" stroke="#4f7cff" stroke-width="2" marker-end="url(#arb)"/>
+<text x="309" y="438" text-anchor="middle" font-size="9" fill="#7097ff">③kubectl → 172.16.0.2</text>
+<line x1="462" y1="506" x2="462" y2="554" stroke="#8892b0" stroke-width="1.5" marker-end="url(#ar)"/>
+<text x="462" y="544" text-anchor="middle" font-size="9" fill="#4a5578">④schedules pods</text>
+<line x1="596" y1="600" x2="700" y2="600" stroke="#0dbc79" stroke-width="1.5" marker-end="url(#arg)"/>
+<line x1="766" y1="556" x2="766" y2="508" stroke="#0dbc79" stroke-width="1.5" marker-end="url(#arg)"/>
+<text x="648" y="592" font-size="9" fill="#22e698">⑤egress</text>
+
+<rect x="24" y="788" width="892" height="78" rx="10" fill="#151929" stroke="#1c2340"/>
+<text x="40" y="810" font-size="11" font-weight="700" fill="#dde3f0">Identity tiers:</text>
+<text x="40" y="828" font-size="9.5" fill="#8892b0">• Human → you, via IAM + OS Login + IAP    • Machine → bastion/node service accounts (scopes)    • Pod → Workload Identity (≈ AWS IRSA)</text>
+<text x="40" y="846" font-size="11" font-weight="700" fill="#dde3f0">Flow:</text>
+<text x="86" y="846" font-size="9.5" fill="#8892b0">① you → IAP   ② → bastion   ③ kubectl → private endpoint   ④ control plane → nodes   ⑤ nodes → Cloud NAT → internet (outbound only)</text>
+<text x="40" y="862" font-size="9.5" fill="#4a5578">Cost: VPC/subnet/router/firewall/state = ~free  ·  nodes+NAT+bastion = the daily spend (tear down nightly)  ·  GKE zonal mgmt fee = free</text>
+</svg>
