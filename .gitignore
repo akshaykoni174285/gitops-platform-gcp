@@ -1,0 +1,29 @@
+# Terraform provider/module downloads
+**/.terraform/*
+
+# State files — may contain secrets. (Yours live in GCS anyway.)
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Crash + plan output
+crash.log
+crash.*.log
+*.tfplan
+
+# Variable files (often hold secrets/IDs)
+*.tfvars
+*.tfvars.json
+!example.tfvars
+
+# GCP credentials — NEVER commit these
+*-key.json
+*-credentials.json
+*service-account*.json
+application_default_credentials.json
+
+# OS / editor noise
+.DS_Store
+*.swp
+.idea/
+.vscode/
